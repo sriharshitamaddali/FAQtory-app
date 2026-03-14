@@ -5,16 +5,22 @@ FAQ Engine is a Retrieval-Augmented Generation (RAG) based application that allo
  
 Users interact via a UI where they upload a PDF and select their intended audience (e.g. Technical, Executive, Non-Technical). The application then processes the document through a secure ingestion pipeline and leverages a LangChain-powered RAG pipeline backed by an LLM (Claude / OpenAI) to generate relevant, audience-specific FAQs.
 
+---
+ 
+## Background
+ 
+The FAQ Engine is part of a larger document processing pipeline. The broader system handles:
+ 
+- **File Upload & Security** — User uploads PDF via UI, stored in an S3 Upload Bucket
+- **Malware Scanning** — File is scanned before being moved to a secure S3 bucket
+- **Invocation** — An S3 PUT event triggers a Lambda function which invokes the FAQ Engine on ECS
+ 
+This repository contains **only the FAQ Engine**. The surrounding infrastructure (S3, Lambda, ECS, UI) is managed separately.
+ 
+---
+
 
 ## How it works
-
-### Upload & Security Flow
-1. User uploads a PDF and selects a target audience via the UI
-2. The file is stored in an **S3 Upload Bucket**
-3. An S3 PUT event triggers an automated **file scan** for malware and vulnerabilities
-   - If the scan **fails** → file is rejected
-   - If the scan **passes** → file is moved to a **S3 Secure Bucket**
-4. A second S3 PUT event triggers a **Lambda function** which invokes the **FAQ Engine on ECS**
 
 ### FAQ Engine Flow
 ![FAQ Engine Architecture](faqtory-engine.png)
@@ -38,21 +44,6 @@ The FAQ Engine runs as a sequential LangChain pipeline:
 | Vector Store | Chroma DB (in-memory, switchable to FAISS) |
 | Embeddings | OpenAI Embeddings |
 | PDF Loader | OpenDataLoader PDFLoader |
-
----
- 
-## Background
- 
-The FAQ Engine is part of a larger document processing pipeline. The broader system handles:
- 
-- **File Upload & Security** — User uploads PDF via UI, stored in an S3 Upload Bucket
-- **Malware Scanning** — File is scanned before being moved to a secure S3 bucket
-- **Invocation** — An S3 PUT event triggers a Lambda function which invokes the FAQ Engine on ECS
- 
-This repository contains **only the FAQ Engine**. The surrounding infrastructure (S3, Lambda, ECS, UI) is managed separately.
- 
----
-
 
 ## Upcoming / Planned Changes
  
