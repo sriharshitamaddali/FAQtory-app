@@ -27,18 +27,3 @@ def generate_faqs(audience: list[str], path: str) -> str:
         logger.info("Final response from Claude model: %s", faqs)
 
     return faqs
-
-if __name__ == "__main__":
-    audience = [
-        "High school students",
-        "Educational counselors"
-    ]
-
-    path = "./sat-school-day-student-guide.pdf"
-
-    result = generate_faqs(audience, path=path)
-
-    with(open("generated_faqs.md", "w") as faq_file):
-        faq_file.write(result)
-
-    print("Generated FAQs in markdown format:", result)
