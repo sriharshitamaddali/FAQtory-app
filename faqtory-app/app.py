@@ -13,6 +13,7 @@ def generate_faqs(audience: list[str], path: str) -> str:
     # For demonstration purposes, we'll return a placeholder string
     agent = create_faq_agent()
 
+    #The user_message passed during an invocation is the specific prompt or query you want the agent to process now.
     user_message = f"As a content writer, analyse the document in this path {path}. Generate FAQs based on the document for the following audience sections: {audience}"
 
     result = agent.invoke({

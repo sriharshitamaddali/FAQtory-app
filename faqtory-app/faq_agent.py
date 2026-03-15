@@ -17,6 +17,7 @@ def create_faq_agent():
     "Your job is to analyse documents and create comprehensive FAQs for specific audience.  " \
     "Provide the FAQs audience section wise. The tone of the FAQs should be formal"
 
+    #The system prompt and other configuration parameters passed during agent creation establish the "personality," constraints, and core instructions that persist across all future interactions.
     system_prompt = generate_system_prompt(
         role="Content Writer",
         task=task

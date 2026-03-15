@@ -53,3 +53,91 @@ The FAQ Engine runs as a sequential LangChain pipeline:
 - [ ] Add **Observability & Monitoring**
 
 ## Getting Started
+ 
+### Prerequisites
+ 
+- Python 3.x
+- An Anthropic API key
+- An OpenAI API key
+ 
+### 1. Clone the Repository
+ 
+```bash
+git clone <repo-url>
+cd <repo-name>
+```
+ 
+### 2. Install Dependencies
+ 
+```bash
+pip install -r requirements.txt
+```
+ 
+### 4. Configure Environment Variables
+ 
+Create a `.env.local` file in the root of the project:
+ 
+```env
+ANTHROPIC_API_KEY=your_anthropic_api_key
+OPENAI_API_KEY=your_openai_api_key
+APP_ENV=local
+```
+ 
+### 5. Create a Test File
+ 
+Create a `test.py` file in the root of the project:
+ 
+```python
+from app import generate_faqs
+
+if __name__ == "__main__":
+    audience = ["audience 1", ...]
+
+    path = "./path-to-file"
+
+    result = generate_faqs(audience, path=path)
+
+    with(open("generated_faqs.md", "w") as faq_file):
+        faq_file.write(result)
+
+    print("Generated FAQs in markdown format:", result)
+```
+ 
+> `audience_section` is a list of audience types relevant to the document.
+> For example, for an IELTS document: `["test_takers", "test_centers"]`
+ 
+### 6. Add Test File to Launch Config
+ 
+In `.vscode/launch.json`, add an entry for `test.py`:
+ 
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run FAQ Engine",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/faqtory-app/test.py",
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/faqtory-app/.env.local",
+            "env": {
+                "APP_ENV": "local"
+            }
+        }
+    ]
+}
+```
+ 
+> The `envFile` field ensures `pydantic_settings` picks up your API keys and `APP_ENV` from `.env.local`
+ 
+### 7. Run via VS Code
+ 
+Open the **Run & Debug** panel (`Ctrl+Shift+D` / `Cmd+Shift+D`), select **Run FAQ Engine** and click ▶️
+ 
+### 8. View Generated FAQs
+ 
+The generated FAQs will be saved to `generated_faqs.md` in the root of the project.
+ 
+---
+ 

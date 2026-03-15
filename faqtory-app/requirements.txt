@@ -1,0 +1,10 @@
+pip
+pydantic_settings
+langchain-core
+langchain_opendataloader_pdf
+langchain_text_splitters
+langchain-chroma
+langchain_anthropic
+langchain_openai
+awscli
+boto3

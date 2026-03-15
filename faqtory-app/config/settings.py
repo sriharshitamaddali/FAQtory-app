@@ -6,7 +6,7 @@ from config.secrets import fetch_secret
 class Settings(BaseSettings):
 
     # ── App ────────────────────────────────────────────
-    app_env: str = "local"          # local | staging | production
+    app_env: str    # local | staging | production
     app_port: int = 8080
     debug: bool = False
 
@@ -26,10 +26,10 @@ class Settings(BaseSettings):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # if self.app_env != "local":
-        #     self._load_from_secrets_manager()
-        # else:
-        self._load_from_env()
+        if self.app_env != "local":
+            self._load_from_secrets_manager()
+        else:
+            self._load_from_env()
 
     def _load_from_env(self):
         """
@@ -65,7 +65,8 @@ class Settings(BaseSettings):
                 self.secrets[var_name.lower()] = secret   # Plain string → use mapped name
 
 
-@lru_cache()
+#Using lru_cache to create a singleton instance of Settings that can be imported and used across the app without re-instantiating it multiple times. This ensures that the settings are loaded once and reused, improving performance and consistency.
+@lru_cache() 
 def get_settings() -> Settings:
     return Settings()
 
