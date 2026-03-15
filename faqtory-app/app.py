@@ -1,0 +1,30 @@
+import logging
+from faq_agent import create_faq_agent
+from langchain.messages import HumanMessage
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)-8s | %(name)s - %(message)s"
+)
+logger = logging.getLogger(__name__)
+
+def generate_faqs(audience: list[str], path: str) -> str:
+    # Here you would implement the logic to generate FAQs based on the document and audience
+    # For demonstration purposes, we'll return a placeholder string
+    agent = create_faq_agent()
+
+    #The user_message passed during an invocation is the specific prompt or query you want the agent to process now.
+    user_message = f"As a content writer, analyse the document in this path {path}. Generate FAQs based on the document for the following audience sections: {audience}"
+
+    result = agent.invoke({
+        "messages": [
+            HumanMessage(content=user_message)
+        ]
+    })
+
+    messages = result.get('messages', [])
+    if messages and len(messages) > 1:
+        faqs = messages[-1].content
+        logger.info("Final response from Claude model: %s", faqs)
+
+    return faqs
