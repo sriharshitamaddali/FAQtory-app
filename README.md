@@ -1,7 +1,7 @@
 # FAQtory-app
 
 ## About
-FAQ Engine is a Retrieval-Augmented Generation (RAG) based application that allows users to upload a PDF document and automatically generate FAQs tailored to a specific target audience.
+FAQtory is a Retrieval-Augmented Generation (RAG) based application that allows users to upload a PDF document and automatically generate FAQs tailored to a specific target audience.
  
 Users interact via a UI where they upload a PDF and select their intended audience (e.g. Technical, Executive, Non-Technical). The application then processes the document through a secure ingestion pipeline and leverages a LangChain-powered RAG pipeline backed by an LLM (Claude / OpenAI) to generate relevant, audience-specific FAQs.
 
