@@ -1,4 +1,4 @@
-# FAQtory-app
+# FAQtory
 
 ## About
 FAQtory is a Retrieval-Augmented Generation (RAG) based application that allows users to upload a PDF document and automatically generate FAQs tailored to a specific target audience.
